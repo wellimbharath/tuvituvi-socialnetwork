@@ -1,28 +1,11 @@
-== README
+== Tuvi-Tuvi
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Tuvituvi is a social networking site which helps you not only connect with your friends but also share dreams on work on that together.
+(It was built when I was 15, hahaha Showing off..)
 
-Things you may want to cover:
+Stack:
+* Ruby 2.3.3
+* Rails 4.2.3
+* mysql2
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+This app uses passenger as its backend server, paperclip for image uploading and devise as authentication engine.
