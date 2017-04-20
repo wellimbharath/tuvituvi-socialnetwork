@@ -1,0 +1,80 @@
+
+		<div class="five wide column">
+		<br><br><br>	
+			<div class="ui vertical menu" style="margin-left:-10px;">
+			<div class="item">
+				<p> 
+ 			 <i class="world large grey icon outline"> </i> 
+ 		 <%= " #{time_ago_in_words(post.created_at)} ago" %>
+ 		</p>
+			</div>
+				<div class="item">
+				
+			    		<div class="ui ">
+			    			<i class="quote left large icon"></i>Comments
+			    			<%= post.comments.count %>
+			    		</div>
+			    		
+			
+				</div>
+		
+				<div class="item">
+					<div class=" ui  ">	
+				<% if current_user.voted_for? post %>
+							
+										<i class="smile large icon "> </i> Like
+				
+							 <% else %>
+									<%= link_to  like_post_path(post), method: :put, class: "grey inverted " do %> 
+										<i class="smile large icon white outline "></i> Like
+									<% end %>
+							<% end %>
+							<span class="ui basic grey "><%= post.votes_for.count %></span>	
+			    	</div>
+
+				</div>
+		
+				<div class="item">
+					<div class="ui labeled  inverted" tabindex="0">
+			    		<div class="ui   " >
+			    		<% if current_user.voted_for? post %>
+			    				<i class="large frown icon"></i>Dislike
+			    				<% else %>
+			    		<%= link_to  dislike_post_path(post), method: :put, class: "grey inverted " do %> 
+			    		<i class="large frown icon"></i> Dislike
+			    		<% end %>
+			    		<% end %>
+			    		</div>
+			    	</div>
+				</div>
+			
+				<div class="item">
+					<div class="ui" tabindex="0">
+			    		<div class="ui  inverted ">
+			    			 <i class="large angellist icon"></i>Awesome
+			    		</div>
+			    		
+			    	</div>
+				</div>
+				<div class="item">
+					<div class="ui" tabindex="0">
+			    		<div class="ui  inverted ">
+			    			 <i class="large share icon" ></i>Share
+			    		</div>
+			    		
+			    	</div>
+				</div>
+					<div class="item">
+					<div class="ui" tabindex="0">
+			    		<div class="ui  inverted ">
+			    			 <i class="large edit icon" ></i>Add to your collection
+			    		</div>
+			    		
+			    	</div>
+				</div>
+
+					
+				
+				
+				</div>
+			</div>

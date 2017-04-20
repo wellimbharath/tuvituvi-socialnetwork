@@ -1,0 +1,20 @@
+<div class="ui container" style="padding:10% 20% 0% 20%; ">
+<div class="ui segment">
+<div class="ui fluid button in-active"><h2>Forgot your password?</h2></div>
+<div class="ui form">
+<br>
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class=" field">
+    <%= f.email_field :email, autofocus: true, placeholder: 'Enter your email' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Send me reset password instructions", class: 'ui green button' %>
+  </div>
+<% end %>
+</div>
+<%= render "devise/shared/links" %>
+</div>
+</div

@@ -1,0 +1,59 @@
+
+
+<% @users.each do |user| %>
+<div class="ui three wide column" %>
+<div class="ui segment">
+<div style=" border-bottom:1px solid #aaa;">
+	<%= image_tag user.background.url, class: "ui fluid image blurred", style: '-webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -o-filter: blur(1px);
+  -ms-filter: blur(1px);
+  filter: blur(1px);'%></div>
+
+<div><%= image_tag 	user.avatar.url(:medium), class: "ui tiny image circular profile", style: 'position:relative; margin-top:-30px;' %></div>
+<div style="text-align:center;">
+
+<h3 style="margin-top:-40px; text-align:right;">
+ <% if user.firstname.present? %>
+   <h3><%= user.firstname %> <% else %> <%= user.username%></h3> 
+<% end %>
+</h3>
+<br>
+<%= user.bio%>
+<br>
+<b>Dream:</b><% if user.dreams.present? %><%= render user.dreams.first %> <% end %>
+
+</div>
+
+<% if !current_user.accepted_friends.include?(user) %>
+              <% if current_user.pending_friends.include?(user) %>
+              <br>
+              	<%= button_tag " #{user.firstname} is in your network", class: "ui button green", style: "background-color: green; ", disabled: true %>
+
+              <% elsif current_user.accepted_friends.include?(user) %>
+                <%= button_tag "You and #{user.firstname} are friends", class: "btn btn-success", style: "background-color: green;", disabled: true %>
+
+              <% elsif current_user.blocked_friends.include?(user) %>
+                <%= button_tag "#{user.firstname} has blocked you!", class: "btn btn-danger", style: "background-color: red;", disabled: true %>
+
+              <% elsif current_user.requested_friends.include?(user)%>
+
+              <% else %>
+             
+                <%= form_for current_user.user_networks.build(friend_id: user), method: :post do |f| %>
+                <%if @user==current_user %>
+            <div class="friend-request-form centered" style="text-align:center;">
+          <br>
+                   <%= f.hidden_field :friend_id, value: user.id  %>      
+                  <%= f.submit "Join Network", class: "ui violet button centered" %>
+                  	
+                </div>
+                <% end %>
+                <% end %>
+
+                <% end %>
+      <% end %>
+
+</div>
+</div>
+<% end %>

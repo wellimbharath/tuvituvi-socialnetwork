@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <title>Tuvi Tuvi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 	 <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+ 	 <%= javascript_include_tag :modernizr %>
+ 	 <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+ 	 <%= csrf_meta_tags %>
+
+</head>
+<body class="container">
+<div class="ui tabular menu navbar" > 
+<div class="ui item centered image">
+
+<%= image_tag 'hand_inverted.svg', class: 'ui tiny image', style: 'padding:10px; margin-left:-23px;' %><%= image_tag "logo.svg", class: "ui small image", style: 'width:55%; margin:0; height:80%'  %>
+</div>
+</div>
+	<%= yield %>
+	<br><br>
+<div class="ui vertical footer segment" style="postion:absolute; bottom:0">
+  <% if !user_signed_in? %>
+		
+    
+  <div class="ui middle aligned"><%= link_to "Sign up | Login ", new_user_session_path , class: "ui login button violet right floated" %></div>
+    <% end %>
+      <div class="ui horizontal divided list">
+        <a class="item" href="#">About Us</a>
+        <a class="item" href="#">Contact Us</a>
+      <%= link_to 'Terms and conditions', 'pages/terms' , class: 'item' %>
+        <a class="item" href="#">Privacy Policy</a>
+ <a class="item" > Copyrights &copy; Tuvituvi. All rights reserved</a>
+      </div>
+
+   
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<% if @friend %>
+
+<h1><%= @friend.first_name %></h1>		
+
+<p>Do you really want to friend <%= @friend.first_name %>?</p>
+
+<%= form_for @user_network, method: :post do |f| %>
+
+	<%= f.hidden_field :friend_id, value: @friend.id  %>      
+	<%= submit_tag "Send friend request", class: "button radius" %>
+  
+<% end %>
+<% end %>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <title>Tuvi Tuvi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 	 <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+ 	 <%= javascript_include_tag :modernizr %>
+ 	 <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+ 	 <%= csrf_meta_tags %>
+<link href="http://vjs.zencdn.net/5.0.2/video-js.css" rel="stylesheet">
+
+  <!-- If you'd like to support IE8 -->
+  <script src="http://vjs.zencdn.net/ie8/1.1.0/videojs-ie8.min.js"></script>
+</head>
+<body class="ripple-effect">
+<div class="box ripple-effect ">
+		<% flash.each do |name, msg| %>
+		  
+		  <% if msg.is_a?(String) %>
+		    <div class="alert alert-<%= name.to_s == 'notice' ? 'success' : 'danger' %>">
+		   
+		      <%= content_tag :div, msg, :class => "ns-ripple-effect" %>
+		    </div>
+		  <% end %>
+		  </div>
+		<% end %>
+
+		<%= render 'layouts/navbar' %>
+		<%= yield %>
+
+</div>
+
+		<script>
+			(function() {
+				var bttn = document.getElementById( 'notification-trigger' );
+
+				// make sure..
+				bttn.disabled = false;
+
+				bttn.addEventListener( 'click', function() {
+					// simulate loading (for demo purposes only)
+					classie.add( bttn, 'active' );
+					setTimeout( function() {
+
+						classie.remove( bttn, 'active' );
+						
+						// create the notification
+						var notification = new NotificationFx({
+							message : '<span class="icon icon-calendar"></span><p>The event was added to your calendar. Check out all your events in your <a href="#">event overview</a>.</p>',
+							layout : 'attached',
+							effect : 'bouncyflip',
+							type : 'notice', // notice, warning or error
+							onClose : function() {
+								bttn.disabled = false;
+							}
+						});
+
+						// show the notification
+						notification.show();
+
+					}, 1200 );
+					
+					// disable the button (for demo purposes only)
+					this.disabled = true;
+				} );
+			})();
+		</script>
+</body>
+</html>

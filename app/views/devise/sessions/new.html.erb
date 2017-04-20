@@ -1,0 +1,33 @@
+<div class="ui container session" >
+<div class="ui segment">
+<div class="ui fluid button in-active"><h2>Log in</h2></div><br>
+<div class="ui form center aligned">
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<% flash.each do |name, msg| %>
+      <% if msg.is_a?(String) %>
+    
+          <%= content_tag :div, msg %>
+      
+      <% end %>
+    <% end %>
+  <div class="field">
+    <%= f.text_field :login, autofocus: true , placeholder: 'Username or Email'%>
+    </div>
+  <div class=" field">
+    <%= f.password_field :password, autocomplete: "off", placeholder: 'Password' %>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div class="field">
+    <div class="ui toggle checkbox"><%= f.check_box :remember_me %><%= f.label :remember_me %></div>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit "Log in", class: 'ui green button' %>
+  </div>
+<% end %>
+</div>
+<%= render "devise/shared/links"  %>
+</div>
+</div>

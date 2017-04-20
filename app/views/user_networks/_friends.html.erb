@@ -1,0 +1,40 @@
+<% if current_user.requested_user_networks.any? %>
+  <% current_user.user_networks.each do |network| %>
+    <% if network.requested? %>
+      <div class="requested">
+
+        <div class="requested-network">
+          <%= render "friend_avatar", object: network.friend %>
+          <span class="friend-name"><%= link_to network.friend.username , network.friend.username %></span>
+          - <em>network requested</em>
+        </div>
+        
+        <div class="requested-friend">
+
+          <form accept-charset="UTF-8" action="<%= user_network_path(network) %>" class="edit_requested_user_network" id="<%= network.id %>" method="post">
+            <div style="margin:0;padding:0;display:inline">
+              <input name="utf8" type="hidden" value="✓">
+              <input name="_method" type="hidden" value="put">
+              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+            </div>
+            <input class="ui success button" name="commit" type="submit" value="Accept network">       
+          </form>
+
+          <form accept-charset="UTF-8" action="<%= user_network_path(network) %>" class="delete_pending_user_network" id="<%= network.id %>" method="post">
+            <div style="margin:0;padding:0;display:inline">
+              <input name="utf8" type="hidden" value="✓">
+              <input name="_method" type="hidden" value="delete">
+              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+            </div>
+            <input class="ui red button" name="commit" type="submit" value="Delete request">
+          </form>
+        </div>
+
+      </div>
+    <% end %>
+  <% end %>
+
+<% else %>
+  <h4>You have no network requests!</h4>
+<% end %>
+

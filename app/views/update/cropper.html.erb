@@ -1,0 +1,42 @@
+<div class="ui grid white">
+<div class="ui three wide column"></div>
+<div class="ui ten wide column">
+<div class="ui segment" style="margin-top:100px;">
+<%= image_tag current_user.avatar.url(:large), :id => "cropbox" , class: 'ui large image' %>
+<%= form_for @user, url: wizard_path do |form| %>
+  <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+    <%= form.text_field attribute, :id => attribute %>
+  <% end %>
+  <p><%= form.submit "Crop" %> or <%= link_to '--skip this step', next_wizard_path %></p>
+<% end %>
+
+<div style="width:100px; height:100px; overflow:hidden">
+  <%= image_tag @user.avatar.url(:large), :id => "preview" %>
+</div>
+</div></div></div>
+<script>
+$(function() {
+  $('#cropbox').Jcrop({
+    onChange: update_crop,
+    onSelect: update_crop,
+    setSelect: [0, 0, 500, 500],
+    aspectRatio: 1
+  });
+});
+function update_crop(coords) {
+  var rx = 100/coords.w;
+  var ry = 100/coords.h;
+  $('#preview').css({
+    width: Math.round(rx * <%= @user.avatar_geometry(:large).width %>) + 'px',
+    height: Math.round(ry * <%= @user.avatar_geometry(:large).height %>) + 'px',
+    marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+    marginTop: '-' + Math.round(ry * coords.y) + 'px'
+  });
+  var ratio = <%= @user.avatar_geometry(:original).width %> / <%= @user.avatar_geometry(:large).width %>;
+  $("#crop_x").val(Math.round(coords.x * ratio));
+  $("#crop_y").val(Math.round(coords.y * ratio));
+  $("#crop_w").val(Math.round(coords.w * ratio));
+  $("#crop_h").val(Math.round(coords.h * ratio));
+}
+
+</script>

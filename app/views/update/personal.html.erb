@@ -1,0 +1,31 @@
+<%= render 'layout' %>
+<div class="ui grid white">
+<div class="ui three wide column"></div>
+<div class="ui ten wide column">
+<div class="ui segment" style="margin-top:100px;">
+<%= form_for @user, url: wizard_path do |f| %>
+<div class="ui form">
+<div class="two fields">
+<div class="six wide field">
+<%= f.label 'First name' %>
+<%= f.text_field :firstname %>
+</div>
+<div class="six wide field">
+<%= f.label 'Last name' %><%= f.text_field :lastname %>
+</div>
+</div>
+<div class="two fields">
+<div class="four wide field" style="display:inline-block; max-hieght:50px;">
+ <%= f.label 'Birthday' %>
+<%= f.date_select :dob, start_year: 1947, end_year: Date.today.year, allow_blank: true, :html=> {:class => "ui selection dropdown"} , class: 'ui selection dropdown' , style: 'display:inline-block'  %>
+ </div>
+
+</div>
+</div>
+<%= f.submit "Continue", class: 'ui primary button right floated'  %>
+<% end %>
+<br><br><br>
+</div>
+</div>
+<div class="ui three wide column"></div>
+</div>

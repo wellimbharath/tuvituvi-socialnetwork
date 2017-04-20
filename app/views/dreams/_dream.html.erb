@@ -1,0 +1,22 @@
+<%- if controller_name == 'dreams' %>
+<%= form_for dream do |f| %>
+	<%= f.check_box :complete, class: 'ui checkbox' %>
+	<%= f.submit "Update", class: 'ui green button' %>
+	<%= f.label :complete, dream.dream %>
+	<%= link_to "(remove)", dream , method: :delete %>
+	<br><br>
+<% end %>
+<% else %>
+<%= form_for dream do |f| %>
+	<%= f.label :complete, dream.dream %>
+	<% end %>
+<% end -%>
+
+<script type="text/javascript">
+$('.ui.checkbox')
+  .checkbox()
+;
+$('.ui.dropdown')
+  .dropdown()
+;
+</script>

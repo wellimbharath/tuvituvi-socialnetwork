@@ -1,0 +1,256 @@
+<% if user_signed_in? %>
+  <div class="mobile_navbar">
+  <div class="ui three item tabular menu">
+<div class=" item">
+</div>
+
+<div class="ui category item"> 
+    <div class="ui search icon input">
+    <%= form_for users_path, url: users_path,    method: :get do %>
+      <%= text_field_tag :query, params[:query], class: 'prompt', placeholder: 'Search people'  %>
+      <%= button_tag url: users_path, class: 'ui inverted button' do %><i class="search grey link icon"></i><% end %>
+        <% end %>
+    </div>
+    <div class="results"></div>
+  </div>
+
+<div class="right item">
+<div class="ui  top right pointing dropdown" style="z-index:10000;">
+    
+      <i class=" large sidebar icon"></i>
+     
+      <div class="ui fluid menu center aligned">
+     
+      <%= link_to  settings_path , class: 'item' do %>
+            <i class="circular settings icon" ></i>  Settings
+        <% end %>
+      
+      <%= link_to   current_user.username , class: 'item' do %> 
+       <i class="circular user icon"></i>
+       <% if current_user.firstname.present? %>
+          <%= current_user.firstname.capitalize %>
+        <% else %>
+          <%= current_user.username.capitalize %>
+       <% end %>
+
+        <% end %>
+         
+     <%= link_to destroy_user_session_path , class: 'item' , method: :delete do %> 
+        <i class="circular sign out icon"></i>
+        Sign Out
+      <% end %>
+      </div>
+</div>
+
+</div>
+  </div>
+  </div>
+
+<div class="navbar mob-no">
+<div class="ui centered stackable computer only tabular menu navbar" > 
+<div class=" item">
+
+<%= image_tag 'hand_inverted.svg', class: 'ui tiny image', style: 'padding:10px; margin-left:-03px;' %>
+</div>
+
+<div class="ui category item">
+    <div class="ui search icon input">
+    <%= form_for users_path, url: users_path, 	 method: :get do %>
+      <%= text_field_tag :query, params[:query], class: 'prompt', placeholder: 'Search people'  %>
+      <%= button_tag url: users_path, class: 'ui inverted button' do %><i class="search grey link icon"></i><% end %>
+        <% end %>
+    </div>
+    <div class="results"></div>
+  </div>
+
+<div class=" item  ">
+    <%= link_to "Home", root_path %> 
+    </div>
+
+	<div class="item"><%= link_to "Dream", dreams_path %></div>
+	<div class="item"><%= link_to "My network", user_networks_path %></div>
+	<div class="item">
+		
+		<div class="ui  top left pointing dropdown">
+		
+		  <%= image_tag current_user.avatar.url(:small) , class: "ui avatar image" %>  
+      <% if current_user.firstname.present? %>
+          <%= current_user.firstname.capitalize %>
+          <% else %>
+          <%= current_user.username.capitalize %>
+       <% end %>
+      <i class="chevron down icon"></i>
+		 
+		  <div class="ui menu center aligned">
+		 
+		 	<%= link_to  settings_path , class: 'item' do %>
+			      <i class="circular settings icon" ></i>  Settings
+		    <% end %>
+		  
+		  <%= link_to   current_user.username , class: 'item' do %> 
+		   <i class="circular user icon"></i>
+		   <% if current_user.firstname.present? %>
+		      <%= current_user.firstname.capitalize %>
+		      <% else %>
+		      <%= current_user.username.capitalize %>
+		   <% end %>
+		    <% end %>
+		     
+		 <%= link_to destroy_user_session_path , class: 'item' , method: :delete do %> 
+		   
+		    <i class="circular sign out icon"></i>
+		    Sign Out
+		  <% end %>
+		  </div>
+		</div>
+
+	</div>	
+  
+
+
+<div class="item" style="border:1px solid #fff;">
+  <%if user_signed_in? %> 
+<br>
+
+
+<div class="ui top right pointing dropdown center aligned notify">
+ <i class="violet circular alarm icon outline"></i>
+  <div class="menu center aligned column" style="text-align:Left;">
+    <div class="header">Notification</div>
+    <div class="ui divider"></div>
+    <div class="container">
+
+    </div>
+    <div class="item " style="text-align:center;">Read More</div>
+    
+  </div>
+</div>   
+
+<div class="ui top right pointing dropdown center aligned">
+ <i class="violet circular mail icon outline"></i>
+  <div class="menu center aligned column" style="text-align:center;">
+    <div class="header">Messages</div>
+    <div class="ui divider"></div>
+    <div class="container">
+      
+
+    </div>
+    <div class="item " style="text-align:center;">Read More</div>
+    
+  </div>
+</div>   
+
+<div class="ui top right pointing dropdown center aligned">
+ <i class="violet circular users icon outline"></i>
+  <div class="menu center aligned column" style="text-align:center;">
+    <div class="header">Friends</div>
+    <div class="ui divider"></div>
+    <div class="container">
+      
+
+    </div>
+    <div class="item " style="text-align:center;">
+    <% if current_user.requested_user_networks.any? %>
+    <% current_user.user_networks.each do |network| %>
+    <% if network.requested? %>
+    
+     <%= image_tag network.friend.avatar.url(:medium) , class:' ui  avatar image' %>  
+     <% if network.friend.firstname.present? %>
+          <%= network.friend.firstname %>
+          <% else %>
+          <%= network.friend.username.capitalize %>
+       <% end %>
+    </h3> <br>Joined your network. <br> Wants you to join his/her network
+
+    <form accept-charset="UTF-8" action="<%= user_network_path(network) %>" class="edit_requested_user_network" id="<%= network.id %>" method="post">
+            <div style="margin:0;padding:0;display:inline">
+              <input name="utf8" type="hidden" value="✓">
+              <input name="_method" type="hidden" value="put">
+              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+            </div>
+            <input class="ui success button" name="commit" type="submit" value="Accept network">       
+          </form>
+    <% end %>
+    <% end %>
+    <% end %>
+    </div>
+  </div>
+</div>    
+ <div class="ui item middle aligned image" style="text-align:center;"><%= link_to 'pages/contact' do %> <strong>Feedback</strong> &nbsp; <i class="chevron right icon"></i> <% end %></div>
+  <% end%>
+  </div>   
+</div>
+</div>
+<% end %>
+
+<script type="text/javascript">
+$(document).on("click", ".login", function () {
+	$('.ui.modal')
+  .modal();
+    $(".ui.modal").modal()
+    .modal("show");
+});
+$('.ui.checkbox')
+  .checkbox()
+;
+$('.ui.dropdown')
+  .dropdown()
+;
+$('.ui.search')
+  .search({
+    source: content
+  })
+;
+$.fn.api.settings.api.search = '/search/?query={value}';
+ $('.search input')
+  .api({
+    action: 'search',
+    // what receives state class names
+    stateContext: '.ui.input'
+  })
+;
+var content = [
+  { title: 'Andorra' },
+  { title: 'United Arab Emirates' },
+  { title: 'Afghanistan' },
+  { title: 'Antigua' },
+  { title: 'Anguilla' },
+  { title: 'Albania' },
+  { title: 'Armenia' },
+  { title: 'Netherlands Antilles' },
+  { title: 'Angola' },
+  { title: 'Argentina' },
+  { title: 'American Samoa' },
+  { title: 'Austria' },
+  { title: 'Australia' },
+  { title: 'Aruba' },
+  { title: 'Aland Islands' },
+  { title: 'Azerbaijan' },
+  { title: 'Bosnia' },
+  { title: 'Barbados' },
+  { title: 'Bangladesh' },
+  { title: 'Belgium' },
+  { title: 'Burkina Faso' },
+  { title: 'Bulgaria' },
+  { title: 'Bahrain' },
+  { title: 'Bharath - CEO' }
+  // etc
+];
+
+$(function() {
+  $('#pictureInput').on('change', function(event) {
+    var files = event.target.files;
+    var image = files[0]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      console.log(file);
+      img.src = file.target.result;
+      $('#target').html(img);
+    }
+    reader.readAsDataURL(image);
+    console.log(files);
+  });
+});
+</script>
+	 

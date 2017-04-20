@@ -1,0 +1,5 @@
+<h3>User</h3>
+<p>Name: <%= @user.username.capitalize if @user.username %></p>
+<%= image_tag @user.avatar.url(:medium) %>
+<p>Email: <%= @user.email if @user.email %></p>
+ 

@@ -1,0 +1,24 @@
+<% if current_user.pending_user_networks.any? %>
+  <% @user_networks.each do |network| %>
+    <% if network.pending? %>
+    	<div class="pending">
+      <div class="ui grid">
+
+      <div class="ten wide column">
+          <div class="ui avatar"><%= image_tag network.friend.avatar.url(:thumb) , class: 'ui avatar image' %> 
+          <span class="friend-name"><%= link_to network.friend.username, network.friend.username %></span>
+
+          </div> 
+      </div>
+        
+  	  </div>
+       </div>
+
+       
+    <% end %>
+  <% end %> 
+<% else %>
+  <h4>Not joined any network</h4>
+<% end %>
+
+

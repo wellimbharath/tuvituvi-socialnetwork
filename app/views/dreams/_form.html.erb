@@ -1,0 +1,13 @@
+<div class="ui form">
+<%= form_for @dream, class: 'ui form', remote: true do |f| %>
+ <div class="two fields">
+ <div class="ui field">
+	<%= f.text_field :dream %>
+	</div>
+	<div class="ui field">
+	<%= f.submit "Add Dream" ,class: 'ui primary button' %>
+	</div>
+
+	</div>
+<% end %>
+</div>

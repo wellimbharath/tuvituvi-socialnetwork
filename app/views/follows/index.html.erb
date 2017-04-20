@@ -1,0 +1,11 @@
+
+<div class="container">
+<% if user_signed_in? %>
+<% if @user == current_user %>
+<% for following in @user.followings %>
+ <%= image_tag following.follow.avatar(:thumb) %>
+ <%= following.follow.username %>
+ <% end %>
+ <% end %>
+ <% end %>
+ </div>

@@ -1,0 +1,11 @@
+development:
+  server: "http://localhost:9292/faye"
+  secret_token: "secret"
+test:
+  server: "http://localhost:9292/faye"
+  secret_token: "secret"
+
+production:
+  server: "http://test.tuvituvi.com/faye"
+  secret_token: "6f7299e1de0038396c35e13fb1176a7b76178c126a6a8b9a688f339a238ec54f"
+  signature_expiration: 3600 # one hour

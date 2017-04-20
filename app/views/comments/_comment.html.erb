@@ -1,0 +1,73 @@
+_<%= @posts.each do |post| %>
+<div class="ui comments segment" style="text-align:left; display:none"  id="post_<%= post.id%>">
+		<% if post.comments.present? %>
+ 
+  			<h3 class="ui dividing header">Comments</h3>
+  	  <% post.comments.each do |comment| %>	 
+			  <div class="comment">
+			  <%= link_to comment.user.username.capitalize, class: "header" do %>
+					  <a class="avatar">
+				    	   <%= image_tag comment.user.avatar.url(:thumb), class: "ui avatar " %>
+						</a>
+   		 <div class="content">
+      			<a class="author"><%= comment.user.firstname.capitalize %></a><% end %>
+			      <div class="metadata">
+			        <span class="date">
+			        <%= " #{time_ago_in_words(comment.created_at)} ago" %></span>
+			      </div>
+      			<div class="text">
+       					<%= comment.content%> 
+							<% if comment.user == current_user  %>
+								<%=  link_to post_comment_path(post, comment), method: :delete, data: { confirm: "Are you sure?" } do %>
+									<i class="icon trash"></i> 
+								<% end %>
+							<% end %>
+     			 </div>
+			      <div class="actions">
+			        <a class="reply">Reply</a>
+			      </div>
+		 </div>
+	     <div class="comments">
+			    <% comment.replies.each do |reply| %>			    
+			      <div class="comment">
+			    <%= link_to reply.user.username.capitalize, class: "header" do %>
+							<a class="avatar">
+					       		<%= image_tag reply.user.avatar.url(:thumb), class: "ui avatar " %>
+							</a>
+			<div class="content">
+			          <a class="author"><%= reply.user.firstname.capitalize %></a>
+			    <% end %>
+
+			          <div class="metadata">
+			            <span class="date"> 
+			            	<%="#{time_ago_in_words(reply.created_at)} ago" %></span>
+			          	</div>
+			          <div class="text">
+			             	<%= reply.content%> 
+				      		<% if reply.user == current_user  %>
+								<%=  link_to comment_reply_path(post, comment), method: :delete, data: { confirm: "Are you sure?" } do %>
+										<i class="icon trash"></i> 
+						        <% end %>
+				            <% end %>
+			          </div>
+			  
+			 </div>
+		</div>
+			      <% end %>
+
+
+			    </div>
+
+			     <div class='ui form'>
+			   
+			   <%= form_for [comment, comment.replies.new] do |f| %>
+            			
+            			<h5><%= f.text_field :content, placeholder: 'Reply', style: 'margin-top:-30px;' %></h5>
+            	<% end %>
+            	</div>
+			
+			  </div>
+			  <% end %>
+			   <% end %>
+  		</div>
+<% end %>

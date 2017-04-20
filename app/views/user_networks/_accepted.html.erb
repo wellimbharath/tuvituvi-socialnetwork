@@ -1,0 +1,43 @@
+<% if current_user.accepted_friends.any? %>
+	<% current_user.user_networks.each do |network| %>
+		<% if network.accepted? %>
+			<div class="accepted">
+				
+				<div class="accepted-network">
+					<div class="accepted-avatar"><%= render "friend_avatar", object: network.friend %></div>
+					<div class="accepted-information">
+						<span class="friend-name"><%= link_to network.friend.username,  network.friend.username %></span>
+					    - <em>network started <%= network.updated_at.strftime("%A,  %B %e,  %Y") %></em> 
+					</div>
+
+	<div class="ui grid">
+		<div class=" eight wide column">
+    <form accept-charset="UTF-8" action="<%= user_networks_path(network) %>" class="edit_accepted_user_network" id="<%= network.id %>" method="post">
+			<div style="margin:0;padding:0;display:inline">
+				<input name="utf8" type="hidden" value="✓">
+				 <input name="_method" type="hidden" value="delete">
+				<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+			</div>
+			<input class="ui danger button" name="commit" type="submit" value="Remove">
+			</form>
+						</div>
+
+		<div class="eight wide column">
+							<form accept-charset="UTF-8" action="<%= block_user_network_path(network) %>" class="block_requested_user_network" id="<%= network.id %>" method="post">
+					            <div style="margin:0;padding:0;display:inline">
+					              <input name="utf8" type="hidden" value="✓">
+					              <input name="_method" type="hidden" value="put">
+					              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+					            </div>
+					            <input class="ui red button" name="commit" type="submit" value="Block">
+				        	</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		<% end %>
+	<% end %> 
+<% else %>
+	<h4>No Network members</h4>
+<% end %>

@@ -1,0 +1,18 @@
+<div class="ui grid white">
+<div class="ui three wide column"></div>
+<div class="ui ten wide column">
+<div class="ui segment center aligned" style="margin-top:100px;">
+<%= form_for @user, url: wizard_path do |f| %>
+<div class="ui form">
+<h3>Tell about yourself</h3>
+<%= f.text_area :bio, placeholder: 'Eg: Im a teenager who wants to change the world' %>
+<br>
+</div>
+<br>
+<%= f.submit "Go to my home page", class: 'ui primary button center aligned'  %>
+<% end %>
+<br><br><br>
+</div>
+</div>
+<div class="ui three wide column"></div>
+</div>

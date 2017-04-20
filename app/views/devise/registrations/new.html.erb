@@ -1,0 +1,43 @@
+<div class="ui container" style="padding:10% 20% 0% 20%; ">
+<div class="ui segment">
+<div class="ui fluid button in-active"><h2>Sign up</h2></div><br>
+<div class="ui form">
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+  <div class=" field">
+
+   <%= f.text_field :username, autofocus: true, placeholder: 'Username' %>
+  </div>
+  <div class=" field">
+
+    <%= f.email_field :email, placeholder: 'Email' %>
+  </div>
+
+  <div class=" field">
+       
+  <%= f.password_field :password, autocomplete: "off", placeholder: 'Password' %>
+ 
+  
+  </div>
+<div class="inline-field">
+ <%= f.label  "By signing up  agree our terms and condition" %>
+ 
+</div>
+  
+ 
+  <div class="actions">
+    <%= f.submit "Sign up" , class: 'ui green button'%>
+  </div>
+<% end %>
+</div>
+<%= render "devise/shared/links" %>
+</div>
+</div>
+<script type="text/javascript">
+$('.ui.checkbox')
+  .checkbox()
+;
+$('.ui.dropdown')
+  .dropdown()
+;
+</script>

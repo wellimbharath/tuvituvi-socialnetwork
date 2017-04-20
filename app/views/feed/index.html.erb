@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <title>Tuvi Tuvi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 	 <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+ 	 <%= javascript_include_tag :modernizr %>
+
+ 	 <%= csrf_meta_tags %>
+<link href="http://vjs.zencdn.net/5.0.2/video-js.css" rel="stylesheet">
+
+  <!-- If you'd like to support IE8 -->
+  <script src="http://vjs.zencdn.net/ie8/1.1.0/videojs-ie8.min.js" ></script>
+</head>
+<body>
+<br><br><br><br>
+
+<div class="ui grid" style="background:#EEE;">
+<div class="three wide column">
+<br><br><br><br><br>
+	
+
+</div>
+<div class="thirteen wide column">
+<div class="ui grid">
+	<% @posts.each do |post| %>
+	<div class="ui eight wide column">
+	<div class="ui segment">
+	<%= post.user.username %>
+	<br>
+	<%= post.content %>
+	<div class="ui fluid segment">
+	<br>
+	</div>
+	</div>
+
+	</div>
+	<% end %>
+
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+	// target elements with the "draggable" class
+interact('.draggable')
+  .draggable({
+    // enable inertial throwing
+    inertia: true,
+    // keep the element within the area of it's parent
+    restrict: {
+      restriction: "parent",
+      endOnly: true,
+      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+    },
+    // enable autoScroll
+    autoScroll: false,
+
+    // call this function on every dragmove event
+    onmove: dragMoveListener
+    // call this function on every dragend event
+      });
+
+  function dragMoveListener (event) {
+    var target = event.target,
+      
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+    // translate the element
+    target.style.webkitTransform =
+    target.style.transform =
+      'translate(' + x + 'px, ' + y + 'px)';
+
+    // update the posiion attributes
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+  }
+
+  // this is used later in the resizing and gesture demos
+  window.dragMoveListener = dragMoveListener;
+
+</script>
+	</body>
+</html>

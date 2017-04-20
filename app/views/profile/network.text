@@ -1,0 +1,45 @@
+<h1>People in <%= @user.firstname%>'s network</h1>
+     
+        <% if @user.pending_user_friendships.any? || @user.accepted_user_friendships.any? || @user.requested_user_friendships.any? %>
+
+<div class="ui small images">
+  <div class="ui four column grid">
+  <% @user_friendships.each do |friendship| %>
+   
+      <div class="column">
+    
+       <div class="ui small image"><%= image_tag friendship.friend.avatar.url(:thumb) , class: 'ui avatar image' %> 
+          <span class="friend-name"><%= link_to friendship.friend.firstname, friendship.friend.username %></span>
+          </div>
+      
+       </div>
+
+       
+  
+  <% end %> 
+</div>
+  </div>
+<% else %>
+  <h4>You have no pending requests!</h4>
+<% end %>
+<h1><%= @user.firstname%> is in network of</h1>
+     
+        <% if @user.accepted_user_friendships.any? %>
+
+<div class="ui small images">
+  <div class="ui four column grid">
+  <% @user_friendships.each do |friendship| %>
+   <% if friendship.accepted? %>
+      <div class="column">
+    
+       <div class="ui small image"><%= image_tag friendship.friend.avatar.url(:thumb) , class: 'ui avatar image' %> 
+          <span class="friend-name"><%= link_to friendship.friend.firstname, friendship.friend.username %></span>
+          </div>
+       </div>
+       <% end %>
+  <% end %> 
+</div>
+  </div>
+  <% end %>
+
+   

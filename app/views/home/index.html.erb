@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tuvi Tuvi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 	 <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+ 	 <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+ 	 <%= csrf_meta_tags %>
+</head>
+<body sytle="overflow:hidden; " class="container-violet">
+
+<div class="" style="margin-bottom:-0px;">
+<div class="ui middle aligned centered bg" style="text-align:center;"><%= image_tag "white_logo.svg", class: "ui medium  image centered"  %> 
+</div>
+<div style="" class="bg login_home">			  
+				
+
+				    <div class="ui form">
+				    <div class=" fields">
+				    <div class="two wide computer field"></div>
+				      <div class=" three wide tablet five wide computer field">
+				  <%= form_for(:user, class: 'ui form', :url => session_path(:user)) do |f| %>
+						        <div class="ui left icon input">
+				          <%= f.text_field :login, placeholder: 'Email Or Username' %>
+				          <i class="user icon"></i>
+				        </div>
+				        <br><br>
+				        	<div class="ui checkbox"><%= f.check_box :remember_me %><%= f.label :remember_me ,'Remember me', class: "whited" %></div>
+				    			
+				    	
+				      </div>
+				      <div class="five wide field">
+				        
+				        <div class="ui left icon input">
+				          <%= f.password_field :password, placeholder: 'Password' %>
+				          <i class="lock icon"></i>
+				        
+				        </div>
+				          	<br><br>	<%= link_to "Forgot your password?", new_password_path(:user), class: "whited" %>
+				        </div>
+				        <div class="two wide field center aligned" style="text-align:center;">
+				        
+				   
+				      <%= f.submit 'Sign in', class: 'ui violet submit button' %>  
+				      
+				      </div>
+				     
+				      </div>
+				      	<div class="ten widefield">
+				    			
+				      </div>  
+						  		
+						  		<% end %>
+				    </div>
+</div>
+<div class="ui stackable grid">
+<div class="ui sixteen wide tablet three wide computer column "  >
+<div class='ui basic segment' sytle="margin-top:70%; height:100%; " >	
+<span class="ui whited" >Stay connected<br> Get the tuvituvi app now.  <br><br><br> <button class="ui login button violet">Get it now</button>
+<button class="ui logged button inverted ">Get it now</button></span>
+</div>
+</div>
+<div class="ui sixteen wide tablet ten wide computer column middle aligned">
+</div>
+<div class="ui three wide computer-only column ">
+	<div class="ui middle aligned" ><span class="ui centered whited"> Dont have an account?<br> Sign up now.  Its free.<br><br><br></span></div>
+<button class="ui login button inverted ">Sign up</button>
+<%= link_to new_user_registration_path  do %><button class="ui logged button inverted" >Sign-up</button> <% end %></div>
+
+</div>
+</div>
+	
+
+	<div class="ui modal">
+	<i class="close icon"></i>
+	<div class="content">
+	<div class="header center aligned"> <h2 style="text-align:center;">Feeling Left Out? - Sign Up</h2> </div><br>
+		<div class="ui  grid middle aligned">
+				<div class="eight wide column">
+		  			
+
+  					<div class="ui form">
+  	
+				      <div class="field">
+ 		     			<%= form_for(User.new, :as => :user,  :url => registration_path(:user) ,:html => {:multipart => true}) do |f| %>
+		     				
+		                        <div class="ui left icon input">
+									<%= f.text_field :username, placeholder: 'Username (only letters and numbers)' %>
+									<i class="user icon"></i>
+								</div>
+						</div>
+		                 <div class="field">  
+		                        <div class="ui left icon input">
+									 <%= f.email_field :email,placeholder: 'Email' %>
+									 <i class="mail icon"></i>
+								</div>
+						</div>
+		                 <div class="field">  
+		                        <div class="ui left icon input">
+									 <%= f.password_field :password, placeholder: 'Password' %>
+									 <i class="lock icon"></i>
+								</div>
+						</div>
+		             <div class="field" style="text-align:center">
+		                       <%= f.submit "Sign up now", class: 'ui button primary center aligned' , :id => 'left' %>
+		                <%end%> 
+		                </div>
+		           	</div>
+					</div>
+					<div class="eight wide column ">
+					<%= image_tag 'logo.svg' %>
+					</div>
+  		</div>
+	</div>
+</div>				
+	
+	</div> 	 	
+	
+
+</div>
+<script type="text/javascript">
+$(document).on("click", ".login", function () {
+    $(".ui.modal").modal()
+    .modal("show");
+});
+$('.ui.checkbox')
+  .checkbox()
+;
+$('.ui.dropdown')
+  .dropdown()
+;
+
+$(function() {
+  $('#pictureInput').on('change', function(event) {
+    var files = event.target.files;
+    var image = files[0]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      console.log(file);
+      img.src = file.target.result;
+      $('#target').html(img);
+    }
+    reader.readAsDataURL(image);
+    console.log(files);
+  });
+});
+</script>
+</body>
+</html>

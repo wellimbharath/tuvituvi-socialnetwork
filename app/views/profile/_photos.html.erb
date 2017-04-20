@@ -1,0 +1,22 @@
+
+
+  <h1>Uploaded photos</h1>
+
+  <div class="ui equal width center aligned five column grid">
+  
+    <% @user.posts.each do |post| %>
+  
+      <% if post.image.present? %>
+  
+        <div class="column" style="margin:0; padding:0;"> 
+          <%= image_tag post.image.url(:small), class: 'ui tiny image' %>
+        </div>
+      <% end %>
+    <% end %>
+</div>
+
+<div class="ui grid">
+
+<div class="sixteen wide column" style="height:350px; ">
+<%= render 'follow' %>
+</div></div>

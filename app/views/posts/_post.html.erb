@@ -1,0 +1,237 @@
+<style>
+
+	.video-js {
+	  font-size: 10px;
+	  color: #6937e2;
+	}
+
+	.vjs-default-skin .vjs-big-play-button {
+	  font-size: 3em;
+	  line-height: 1.5em;
+	  height: 1.5em;
+	  width: 1.5em;
+	  border: 0.06666em solid #6937e2;
+	  border-radius: 0.3em;
+	  left: 50%;
+	  top: 50%;
+	}
+	.video-js .vjs-control-bar,
+	.video-js .vjs-big-play-button,
+	.video-js .vjs-menu-button .vjs-menu-content {
+	  background-color: #2B333F;
+	  background-color: rgba(43, 51, 63, 0.7);
+	}
+	.video-js .vjs-slider {
+	  background-color: #73859f;
+	  background-color: rgba(115, 133, 159, 0.5);
+	}
+	.video-js .vjs-volume-level,
+	.video-js .vjs-play-progress,
+	.video-js .vjs-slider-bar {
+	  background: #6937e2;
+	}
+	.video-js .vjs-load-progress {
+	  background: ligthen(#73859f, 25%);
+	  background: rgba(115, 133, 159, 0.5);
+	}
+	.video-js .vjs-load-progress div {
+	  background: ligthen(#73859f, 50%);
+	  background: rgba(115, 133, 159, 0.75);
+	}
+</style>
+<div class="ui ">
+	<div class="post_wrapper draggable" id="drag-1" data-position="right center"  data-variation="inverted" style="z-index:1; margin-top:0px;">
+			<div class='ui basic segment'>
+				<div class='ui  grid'>
+					<div class="sixteen wide column">
+		 				<%= link_to post.user.username do %>
+				   		<%= image_tag post.user.avatar.url(:thumb) , class: "ui avatar image", style: "position:relative; width:60px; height:60px;" %>
+
+							<div class="ui breadcrumb">
+		  					<b class="section">
+									<% if post.user.firstname.present? %>
+		         				<%= link_to post.user.firstname.capitalize ,  post.user.username %>
+		          		<% else %>
+		       					<%= link_to post.user.username.capitalize ,  post.user.username %>
+		       				<% end %>
+								</b>
+		  					<i class="right chevron icon divider"></i>
+		  					<a class="section">Public</a>
+							</div>
+			 			<% end %>
+
+						<div style="display:block; margin:15px; text-align:justify;">
+							<%= (post.content) %>
+						</div>
+						<%if post.image? %>
+							<div class="ui image center aligned">
+								<%= image_tag post.image.url(:post) , class: 'ui large image', style: "width:120%;" %>
+							</div>
+						<% end %>
+						<%if post.audio? %>
+							<div class="ui large image center aligned">
+								<video id="my_video_1"  poster='http://www.pickatheme.com/formspring-backgrounds/images/bg/2954.jpg' class="video-js vjs-default-skin"  data-setup='{ playbackRates": [1, 1.5, 2] }' controls preload="none" >
+		    					<source src="<%= post.audio.url %>" type='audio/mp3'>
+		    					<p class="vjs-no-js">
+		      					To view this video please enable JavaScript, and consider upgrading to a web browser that
+		      				<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+		    					</p>
+	  						</video>
+							</div>
+					 <% end %>
+					 <%if post.video? %>
+					 	 <div class="ui fluid image center aligned">
+							<video id="my_video_1" class="video-js vjs-default-skin fluid" controls preload="none" poster='http://www.dailyblogtips.com/wp-content/uploads/video.png'
+				      data-setup='{ "playbackRates": [1, 1.5, 2] }'>
+					    	<source src="<%= post.video.url %>" type='video/mp4'>
+					    	<p class="vjs-no-js">
+					      	To view this video please enable JavaScript, and consider upgrading to a web browser that
+					      	<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+					    	</p>
+				  		</video>
+	 					</div>
+					<% end %>
+
+					<br>
+					<div class="sixteen  wide column " style="color:#6937e2;">
+						<div class="ui fluid text menu violet " style="margin-left:-10px; ">
+							<div class="ui item  mob-no">
+	 			 				<i class="world large icon outline"> </i>
+	 		 					<span class="mob-no"><%= "#{time_ago_in_words(post.created_at)} ago"  %></span>
+							</div>
+							<div class="item item-comment">
+				    		<div class="ui inverted ">
+				    			<i class="quote left large icon"></i><span class="mob-no">Comments</span>
+				    			<a class="ui circular label">
+				    			<%= post.comments.count %>
+				    			</a>
+				    		</div>
+						 </div>
+						 <div class="item">
+							 <div class=" ui ">
+								 <% if current_user.liked? post %>
+	  					 		<%= link_to  dislike_post_path(post), class: 'vote', method: :put, remote: true, data: { toggle_text: '<i class="large angellist icon"></i> <span class="mob-no"> Awesome </span>', toggle_href: like_post_path(post), id: post.id } do %><i class="large frown icon"></i><span class="mob-no"> Boring</span> <% end %>
+								 <% else %>
+	  					 		<%= link_to like_post_path(post), class: 'vote', method: :put, remote: true, data: { toggle_text: '<i class="large frown icon"></i> <span class="mob-no">Boring</span>', toggle_href: dislike_post_path(post), id: post.id } do %><i class="large angellist icon"></i> <span class="mob-no">Awesome </span> <% end %>
+								 <% end %>
+								 <a class="ui circular label">
+									 <span class="votes-count" data-id="<%= post.id %>">
+	 								 	<%= post.get_likes.size %>
+									</span>
+								</a>
+				    	</div>
+					 </div>
+					<div class="ui button inverted item">
+						<div class="ui" tabindex="0">
+				    		<div class="ui">
+				    			 <i class="large share icon" ></i> <span class="mob-no">Share</span>
+				    		</div>
+				    </div>
+					</div>
+					<div class="item">
+						<div class="ui" tabindex="0">
+				    	<div class="ui">
+				    		<i class="large edit icon" ></i><span class="mob-no"> Add to collection</span>
+				    	</div>
+				    </div>
+				 </div>
+				</div>
+			</div>
+			<div class="ui comments segment" style="text-align:left; display:none"   id="wrapper_<%= post.id %>">
+				<% if post.comments.present? %>
+	  			<h3 class="ui dividing header">Comments</h3>
+	  	  	<% post.comments.each do |comment| %>
+					<div class="comment">
+						<%= link_to comment.user.username.capitalize, class: "header" do %>
+							<a class="avatar">
+								<%= image_tag comment.user.avatar.url(:thumb), class: "ui avatar " %>
+							</a>
+	   		 			<div class="content">
+		      				<a class="author">
+										<% if comment.user.firstname.present? %>
+		         					<% comment.user.firstname.capitalize %>
+		          			<% else %>
+		       						<%= link_to comment.user.username.capitalize%>
+		       					<% end %>
+								 	</a>
+							<% end %>
+					    	<div class="metadata">
+					        <span class="date">
+					        <%= " #{time_ago_in_words(comment.created_at)} ago" %></span>
+					      	</div>
+		      			<div class="text">
+		       				<%= comment.content%>
+									<% if comment.user == current_user  %>
+										<%=  link_to post_comment_path(post, comment), method: :delete, data: { confirm: "Are you sure?" } do %>
+											<i class="icon trash"></i>
+										<% end %>
+									<% end %>
+		     			 </div>
+					     <div class="actions">
+					        <a class="reply">Reply</a>
+					    </div>
+			 			</div>
+		     		<div class="comments">
+				    	<% comment.replies.each do |reply| %>
+				      	<div class="comment">
+				    		<%= link_to reply.user.username.capitalize, class: "header" do %>
+									<a class="avatar">
+						       	<%= image_tag reply.user.avatar.url(:thumb), class: "ui avatar " %>
+									</a>
+									<div class="content">
+				          	<a class="author">
+				          	<% if reply.user.firstname.present? %>
+				          		<%= reply.user.firstname.capitalize %>
+				          	<% else %>
+				          		<%= reply.user.userame.capitalizes %>
+				          	<% end %>
+				          </a>
+				    	<% end %>
+				          <div class="metadata">
+				            <span class="date">
+				            	<%="#{time_ago_in_words(reply.created_at)} ago" %></span>
+				          	</div>
+				          <div class="text">
+				             	<%= reply.content%>
+					      			<% if reply.user == current_user  %>
+												<%=  link_to comment_reply_path(post, comment), method: :delete, data: { confirm: "Are you sure?" } do %>
+													<i class="icon trash"></i>
+							        	<% end %>
+					            <% end %>
+				          </div>
+				 					</div>
+								</div>
+				    <% end %>
+				   </div>
+				  <div class='ui form'>
+				   <%= form_for [comment, comment.replies.new] do |f| %>
+	            	<h5><%= f.text_field :content, placeholder: 'Reply', style: 'margin-top:-30px;' %></h5>
+	         <% end %>
+	       </div>
+				</div>
+				<% end %>
+			<% else %>
+				Be the first one to comment !!!
+			<% end %>
+	  </div>
+
+	  <div class='ui form'>
+			<br><br>
+			<%= form_for [post, post.comments.new] , class: 'ui form' do |f| %>
+			    <div class="inline fields">
+			      		<div class="two wide field"><%= image_tag current_user.avatar.url(:thumb), class: 'ui rounded tiny image' ,style: 'height:40px; width:40px' %> </div>
+			      		<div class="fourteen wide field item-comment" ><%= f.text_field :content, placeholder: 'Add a comment...'  %></div>
+			    </div>
+			<% end %>
+		</div>
+ 	 </div>
+ 	</div>
+  </div>
+ </div>
+</div>
+<script src="http://vjs.zencdn.net/5.0.2/video.js"></script>
+<script type="text/javascript">
+$('.item-comment').click(function() {
+	$('#wrapper_<%= post.id %>').toggle('slow');
+});
+</script>

@@ -1,0 +1,13 @@
+
+<div class="ui stackable grid" style="margin:5%;">
+<div class="ui sixteen wide column"><h1>Your Search Results :-</h1></div>
+<% if @users.any? %>
+<%= render 'partials/users' %>
+
+<% else %>
+<div class="ui stackable grid">
+<div class="sixteen wide column"  style="text-align:center; position:relative; top:50%; left:25%; right:25%; bottom:25%; padding:20%;">
+<h2 style="text-align:center"><i class="frown icon huge"></i>Sorry!!!!! We found nothing.. </h2>
+</div>
+</div>
+<% end %>

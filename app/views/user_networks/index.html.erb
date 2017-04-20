@@ -1,0 +1,60 @@
+<% provide(:title, "Friends") %>
+<br><br><br><br><br><br>
+
+
+
+  <div class="container">
+  <%= link_to  :back, class: ' ui button violet' do %>
+<i class="arrow left icon"></i>Back
+<% end %>
+    <div class="ui stackable grid">
+    
+    <div class="ui four wide column">
+
+
+
+      <div class="ui column">
+          <div class="profile-highlight pad-header"><h1>Mutual Network</h1></div>
+          
+            <div class="user-info accepted-friends">
+              <%= render "accepted" %>
+            </div> 
+      </div>
+</div>
+<div class="ui four wide column">
+    
+      <div class="four wide column">
+        <div class="profile-highlight pad-header"><h2>Blocked Network</h2></div>
+          <div class="blocked-friends user-info">
+            <%= render "blocked" %>
+          </div>
+      </div>
+</div>
+<div class="four wide column">
+
+      <div class="row user-profile">
+
+      <div class="profile-highlight pad-header"><h2>Joined Network</h2></div>
+        <div class="pending-friends user-info">
+          
+            <%= render "pending" %> 
+
+        </div>
+
+      </div>
+</div>
+<div class="four wide column">
+      <div class="row user-profile">
+      
+      <div class="profile-highlight pad-header"><h2>Network Requests</h2></div>
+        <div class="study-partner-requests user-info">
+          <%= render "friends" %>
+        </div>
+
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

@@ -1,0 +1,14 @@
+<td>
+  <% if like = current_user.following in @user.followings %>
+  <%= form_for like, :html => { :method => :delete },
+                     :remote => true do |f| %>
+    <%= f.submit "Unfollow" %>
+  <% end %>
+<% else %>
+  <%= form_for current_user.followings_path(:follow_id => user), :remote => true do |f| %>
+    <%= f.hidden_field :follow_id %>
+    <%= f.hidden_field :user_id %>
+    <%= f.submit "Follow" %>
+  <% end %>
+<% end %>
+</td>

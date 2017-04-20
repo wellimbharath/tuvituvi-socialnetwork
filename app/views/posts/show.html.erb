@@ -1,0 +1,125 @@
+
+<br><br><br><div class="ui grid">
+<div class="three wide column violet">	
+<div style="position:fixed; margin-top:30px; line-height:30px; margin-left:50px; font-size:1.1em;">
+<i class="newspaper icon "></i><%= link_to "Learn Something", learns_path, class: "whited" %><br>
+<i class="group icon "></i><%= link_to "Groups", groups_path, class: "whited" %><br>  
+<i class="building icon "></i>Achievement<br>
+<i class="road icon "></i>Goal<br>
+<i class="heart icon "></i><%= link_to "Friends", people_path, class: "whited" %><br>
+<i class="external icon "></i><%= link_to "Followings", people_path, class: "whited" %><br>
+<i class="camera retro icon "></i><%= link_to "Photos", galleries_path, class: "whited" %><br>
+<i class="video icon "></i><%= link_to "Videos", videos_path, class: "whited" %><br>
+<i class="sound icon "></i><%= link_to "Sounds", sounds_path, class: "whited" %><br>
+<i class="edit icon "></i><%= link_to "Create", creates_path, class: "whited" %><br>
+</div>
+</div>
+
+<div class="eight wide column" >
+	<div class="ui grid">
+		<div class="ui sixteen wide column">
+		<div class="post_wrapper" id="post_<%= @post.id %>" data-position="right center" data-content="By <%= @post.user.username.capitalize %>" data-variation="inverted" style="z-index:10000;">	
+ <%= link_to @post.user.username.capitalize do %>
+   <%= image_tag @post.user.avatar.url(:thumb) , class: "ui profile middle aligned tiny image" %> 
+	<span class="header"><%= @post.user.username.capitalize %> </span>
+
+  <% end %>
+ 		<p class="date middle">On <%= @post.created_at.strftime("%B %d, %Y") %></p>  
+		
+		<div style="display:block; margin:15px;"> 
+			<%= (@post.content) %> 
+		</div>
+		
+		<div class="ui image center aligned column">
+			<%if @post.image? %>
+				<%= image_tag @post.image.url %>
+			<% end %>	
+		</div>
+<br><br>
+		<div class="ui image center aligned column">
+			<%if @post.audio? %>
+<audio controls>
+<source src="<%= @post.audio.url %>">
+</audio>
+				<% end %>	
+		
+		</div>
+
+		<div class="ui image center aligned column">
+			<%if @post.video? %>
+
+			<video controls>
+			<source src="<%= @post.video.url%>">
+			</video>
+
+				<% end %>	
+		
+		</div>
+		<div class="ui text menu">
+		<div class="item">
+				<div class="ui labeled  inverted" tabindex="0">
+		    		<div class="ui violet inverted ">
+		    			<i class="comment large icon grey"></i> 
+		    			<%= @post.comments.count %>
+		    		</div>
+		    		
+		    	</div>
+</div>
+<div class="item">
+				<div class="ui labeled inverted" tabindex="0">
+		    	
+						<% if current_user.voted_for? @post %>
+									<%= link_to like_post_path(@post), method: :delete, class: "grey" do %>
+									<i class="heart large grey icon "> </i> 
+									<% end %>	
+						 <% else %>
+									<%= link_to  like_post_path(@post), method: :put, class: "grey inverted " do %> 
+										<i class="heart large icon grey outline "></i>   
+									<% end %>
+						<% end %>
+							<span class="ui basic grey "><%= @post.votes_for.count %></span>
+		    	</div>
+		    	</div>
+		</div>
+  	<div class="ui comments grey">
+  
+      <% if @post.comments %>
+          		<% @post.comments.each do |comment| %>
+		 
+				  <div class="comment">
+				    <%= link_to comment.user.username.capitalize, class: "header" do %>
+				  <a class="avatar">
+				       <%= image_tag comment.user.avatar.url(:thumb), class: "ui avatar " %>
+					</a>
+					<div class="content">
+				    
+				      <%= comment.user.username.capitalize %>
+<% end %>
+				      <div class="text"><%= comment.content%> 
+				      		<% if comment.user == current_user  %>
+						               	 <%=  link_to @post_path, method: :delete, data: { confirm: "Are you sure?" } do%>
+<i class="icon trash"></i> 
+						               	 <% end %>
+				              <% end %>
+				       </div>
+				 
+				      </div>	
+				  </div>
+
+  		<% end %>   
+  	  <% end %>
+  </div>
+  <form class="ui form">
+  <div class="field">
+			<h5>  <%= form_for [@post, @post.comments.new] do |f| %>
+            		<%= f.text_field :content, placeholder: 'Add a comment...' %>
+            	  <% end %></h5>
+				</div>
+	 </div>
+	 </form>
+	<div class="ui divider horizontal black"> <i class="circle icon large outline grey"></i> </div>
+	
+	</div>
+</div>
+</div>
+</div>

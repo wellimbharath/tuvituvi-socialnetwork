@@ -1,0 +1,91 @@
+  <%= form_for @post,  :html => { :multipart => true } do  |f| %>
+      <div class="ui form">
+        <div class="field">
+          <%= f.text_area :content, placeholder: 'Hang a post and let everybody know that..',  autofocus: false, style: ' min-height:150px; max-height: 2000px, border-radius:0;' %>
+       
+        <div class="ui violet menu" style="background-color:#6937e2; color:#fff; position:relative; top:-15px;">
+        
+        <div class="item" style="color:#fff">
+         <div id="upload-file-container">
+         <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg',  id: 'pictureInput', class: 'ui button' %>
+         <span class="mob-no">Photo</span>                                                                                                                                                                                                                                                                                            
+         </div> 
+
+        </div>
+
+        <div class="item" style="color:#fff">
+          <div id="upload-audio-container" >
+          <%= f.file_field :audio, accept: 'audio/mp3, audio/wav , audio' , class: 'ui button'%>
+          </div> <span class="mob-no">Sound</span>
+        </div>
+          <div class="item" style="color:#fff">
+          <div id="upload-video-container" >
+          <%= f.file_field :video, accept: 'video/mp4,video/mpeg4,video, video/flv , video/mpeg' , class: 'ui button'%> 
+          </div><span class="mob-no">Video</span>
+          </div>
+           <div id="target" class="ui image tiny"></div>
+        
+          <div class="right floated item">
+          <%= submit_tag( 'Hang it',:class => "ui inverted button right floated" , style: "float:right;") do %>
+          <% end %>
+       </div>
+
+       </div>
+       </div>
+       
+         
+        </div>
+<% end %>
+
+
+<script type="text/javascript">
+
+  autosize(document.querySelectorAll('textarea'));
+
+ $('.ui.form') 
+ .form{
+ 	content: {
+        identifier : 'Content',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter a username'
+          }
+        ]
+      }};
+
+  $(document).on("click", ".ui.secondary.post", function () {
+    $('.ui.post.modal')
+    .modal({
+      blurring: true
+    }).modal("show");
+    
+  });
+
+  $(document).ready(function() {
+    $('#pictureInput').on('change', function(event) {
+      var files = event.target.files;
+      var image = files[0]
+      var reader = new FileReader();
+      reader.onload = function(file) {
+        var img = new Image();
+        console.log(file);
+        img.src = file.target.result;
+        $('#target').html(img);
+      }
+
+      var preview = documnet.getElementById('target');
+      if(preview && preview.style) {
+      previewImg.style.height = '50px';
+      previewImg.style.width = '100px';
+
+  } 
+
+    reader.readAsDataURL(image);
+    console.log(files);
+
+  });
+
+});
+
+</script>

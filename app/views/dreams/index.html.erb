@@ -1,0 +1,13 @@
+	<div class="ui segment" style="margin:7%">
+	<h1>Dream list</h1>
+
+	<%= link_to "Add Dreams", new_dream_path, id: 'new_link', class: 'ui primary button',  remote: true %>
+	<h2>Incomplete Dream </h2>
+	<div class="dreams" id="incomplete_dreams">
+	<%= render @incomplete_dreams %>
+	</div>
+	<h2> Achieved Dream </h2>
+	<div class="dreams" id="achieved_dreams">
+	<%= render @achieved_dreams %>
+	</div>
+	</div>

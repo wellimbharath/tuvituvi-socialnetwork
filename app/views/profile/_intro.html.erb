@@ -1,0 +1,161 @@
+<div class="ui stackable grid" style="text-align:center">
+
+      <div class="ui sixteen wide mobile sixteen wide tablet four wide computer column center aligned ">
+      <%= image_tag @user.avatar.url(:medium) , class: 'ui rounded tiny image' %>
+          <% if @user == current_user %>
+             <span class="corner tl whited">
+                  <i class="user icon inverted"></i>you
+             </span>
+           <% else %>
+             <span class="corner tl">
+             <% if @user.friends %>
+                               <i class="users icon inverted"></i> Friends
+             <% else %>
+
+              <i class="add user inverted"></i>Add friend
+              
+              <% end %>
+             </span>
+          <% end %>
+        
+
+          <h1 class="violet"><%= @user.fullname if @user.firstname.capitalize %></h1>
+
+</div>
+<div class="ui sixteen wide tablet twelve wide computer column ">
+
+<div class="ui stackable grid">
+  <div class="ui  sixteen wide mobile sixteen wide tablet eight wide computer column">
+        <div class="ui content">
+           
+            <div class="ui segment">
+            <h1>About</h1>
+             <div class="ui horizontal segments">
+    <div class="ui segment">
+    <div class="ui sixteen wide mobile column "> <% if @user.firstname.present? %> <%= @user.firstname%> <% else %> <%= @user.username %> <% end %> is in the network of <%= @user.accepted_friends.count + @user.pending_friends.count + @user.requested_friends.count %> people </div>
+    </div>
+    <div class="ui segment">
+      <div class="column ">
+      <%= @user.accepted_friends.count %> people in  <% if @user.firstname.present? %> <%= @user.firstname%>'s <% else %> <%= @user.username %>'s<% end %> network</div>
+    </div>
+   
+  </div>
+                
+    
+        
+<br><br>
+             <% if @user.bio.present? %>
+               <i class="quote left icon big grey" ></i><%= @user.bio %>  <br>     <span style="margin-left:100px;"> <a class="violet"><strong>Dream :</strong></a> 
+               <% @user.dreams.each do |dream| %><%= dream.dream %>  <% end %></span>      
+               <span style="float:right;">
+<br>
+               - <%= @user.firstname %>
+               </span>
+              <% end %>
+              <br>  <br>
+              <button class="fluid ui    button">Read More</button>
+                </div>
+              
+            </div>
+
+<% if user_signed_in? %>
+            <div class="friend-request-form">
+          <% if current_user.pending_friends.include?(@user) %>
+                <%= button_tag "Request sent to join yours", class: "btn btn-success", style: "background-color: green;", disabled: true %>
+            <% elsif current_user.accepted_friends.include?(@user) %>
+                <%= button_tag " #{@user.firstname} is in your network", class: "btn btn-success", style: "background-color: green;", disabled: true %>
+            <% elsif current_user.blocked_friends.include?(@user) %>
+                <%= button_tag "#{@user.firstname} has blocked you!", class: "btn btn-danger", style: "background-color: red;", disabled: true %>
+            <% else %>
+              
+              <% if @user != current_user %>
+                <%= form_for current_user.user_networks.build(friend_id: @user), method: :post do |f| %>
+                  <%= f.hidden_field :friend_id, value: @user.id  %>      
+                  <%= f.submit "Join", class: "ui primary button" %>  
+              <% end %>
+
+            <% end %>
+          <% end %>
+            </div>
+            <% end %>
+     </div>
+
+     <div class="sixteen wide tablet eight wide computer column">
+
+        <h1>People in <% if @user.firstname.present? %> <%= @user.firstname%>'s <% else %> <%= @user.username %> <% end %> network</h1>
+<div class="userbar" >
+
+        <% if @user.pending_user_networks.any? || @user.accepted_user_networks.any? || @user.requested_user_networks.any? %>
+  <% @user_networks.each do |network| %>
+   
+      <div>
+    
+       <div class="ui tiny image"><%= image_tag network.friend.avatar.url(:thumb) , class: 'ui avatar image' %> 
+          <span class="friend-name"><%= link_to network.friend.firstname, network.friend.username %></span>
+          </div>
+      
+       </div>
+
+       
+  
+  <% end %> 
+
+<% else %>
+  <h4>You have no network members</h4>
+<% end %>
+</div>
+<h1> <% if @user.firstname.present? %> <%= @user.firstname%>'s <% else %> <%= @user.username %>'s' <% end %> is in network of</h1>
+     
+        <% if @user.accepted_user_networks.any? %>
+
+
+<div class="userbar" >
+  <% @user_networks.each do |network| %>
+   <% if network.accepted? %>
+      <div>
+    
+       <div class="ui small image"><%= image_tag network.friend.avatar.url(:thumb) , class: 'ui avatar image' %> 
+          <span class="friend-name"><%= link_to network.friend.firstname, network.friend.username %></span>
+          </div>
+          
+       </div>
+       <% end %>
+  <% end %> 
+</div>
+
+  <% end %>
+  </div>
+     </div>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+ $(document).ready(function(){
+$('.userbar').slick({
+  centerMode: false,
+  Padding: '60px',
+  slidesToShow: 3,
+  responsive: [
+    {
+      breakpoint: 768,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 3
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 1
+      }
+    }
+  ]
+});
+});
+
+</script>

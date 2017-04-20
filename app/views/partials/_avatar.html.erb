@@ -1,0 +1,10 @@
+<%= link_to current_user.username do %>
+<div class="ui  basic segment">
+
+<div><%= image_tag current_user.avatar.url(:medium), class: "ui small image centered", style: 'position:relative; background:#fff;' %></div>
+<div style="text-align:center;"><% if current_user.firstname.present? %><h3><%= current_user.fullname %><% else %> <%= current_user.username %> <% end %></h3>
+
+</div>
+</div>
+
+<% end %>

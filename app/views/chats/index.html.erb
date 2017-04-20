@@ -1,0 +1,54 @@
+<br><br><br><br>
+<div class="ui vertical menu" %>
+
+        <h3 class="ui heading">People in your Network</h3>
+
+       <div class="ui item">
+          <% @users.each_with_index do |user, index| %>
+              
+                <%= index +=1 %>
+                <%= image_tag user.avatar.url(:thumb), class: 'ui image avatar' %>
+                <%= user.username %>
+                <br>
+                  <%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation", "data-sid" => current_user.id, "data-rip" => user.id %>
+                <br>
+          <% end %>
+</div>
+      </div>
+
+    <hr>
+    <h3>Your Conversations</h3>
+
+    <div style="height: 400px; overflow-y:auto; color:#999;">
+      <% if @conversations.any? %>
+          <ul class="media-list">
+            <% @conversations.each do |conversation| %>
+                <li class="ui avatar">
+                  <div class="container">
+                  
+                        
+                        <% if conversation_interlocutor(conversation).present? %> 
+                        <%= conversation_interlocutor(conversation).username %> 
+                        <% end %> 
+
+                        </h4>
+                        <p><%= conversation.messages.last.nil? ? "No messages" : truncate(conversation.messages.last.body, length: 45) %></p>
+                          <%= link_to "Reply" , conversation_path(conversation), class: "conversation", "data-cid" => conversation.id %>
+                        <h4 class="media-heading">
+                  </div>
+                </li>
+
+            <% end %>
+          </ul>
+      <% else %>
+          <p>You have no conversations. Click send message with any user to create one.</p>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="col-md-4">
+
+  </div>
+
+</div>

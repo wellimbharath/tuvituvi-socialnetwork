@@ -1,0 +1,134 @@
+
+<h1 style="text-align:center;"><%=@user.firstname%>'sNetwork</h1>
+
+<div id="cy"></div>
+
+
+<script type="text/javascript">
+  
+  $(function(){ // on dom ready
+
+// photos from flickr with creative commons license
+  
+var cy = cytoscape({
+  zoomingEnabled: false,
+  container: document.getElementById('cy'),
+  style: cytoscape.stylesheet()
+    .selector('node')
+      .css({
+        'height': 80,
+        'width': 80,
+        'background-fit': 'cover',
+        'border-color': '#000',
+        'border-width': 1,
+        'border-opacity': 0.5
+      })
+    .selector('.eating')
+      .css({
+        'border-color': 'violet'
+      })
+    .selector('.eater')
+      .css({
+        'border-width': 9
+      })
+    .selector('edge')
+      .css({
+        'width': 1,
+        'target-arrow-shape': 'triangle',
+        'line-color': '#6937e2',
+        'target-arrow-color': '#6937e2'
+      })
+
+    .selector('#current_user')
+      .css({
+        'background-image': '<%= @user.avatar.url %>'
+      })
+
+       <% @user_networks.each do |network| %>
+    .selector('#<%= network.friend.id %>')
+      .css({
+        'background-image': '<%= network.friend.avatar.url%>'
+      })
+      <% end %>
+  ,
+  
+  elements: {
+    nodes: [
+    <% @user_networks.each do |network| %>
+     { data: { id : '<%= network.friend.id %>'}},
+      <% end %>
+
+      { data: { id: 'current_user' } }
+ 
+      
+    ],
+    edges: [
+    <% @user_networks.each do |network| %>
+      { data: { source: 'current_user', target:    '<%= network.friend.id %>' } },<% end %>
+      
+
+    ]
+  },
+  
+  layout: {
+    name: 'concentric',
+    directed: true,
+    padding: 10,
+     nodeRepulsion       : 400000
+
+  }
+}); // cy init
+  
+cy.on('tap', 'node', function(){
+  var nodes = this;
+  var tapped = nodes;
+  var food = [];
+  
+  nodes.addClass('eater');
+  
+  for(;;){
+    var connectedEdges = nodes.connectedEdges(function(){
+      return !this.target().anySame( nodes );
+    });
+    
+    var connectedNodes = connectedEdges.targets();
+    
+    Array.prototype.push.apply( food, connectedNodes );
+    
+    nodes = connectedNodes;
+    
+    if( nodes.empty() ){ break; }
+  }
+        
+  var delay = 0;
+  var duration = 500;
+  for( var i = food.length - 1; i >= 0; i-- ){ (function(){
+    var thisFood = food[i];
+    var eater = thisFood.connectedEdges(function(){
+      return this.target().same(thisFood);
+    }).source();
+            
+    thisFood.delay( delay, function(){
+      eater.addClass('eating');
+    } ).animate({
+      position: eater.position(),
+      css: {
+        'width': 10,
+        'height': 10,
+        'border-width': 0,
+        'opacity': 0
+      }
+    }, {
+      duration: duration,
+      complete: function(){
+        thisFood.remove();
+      }
+    });
+    
+    delay += duration;
+  })(); } // for
+  
+}); // on tap
+
+}); // on dom ready
+</script>

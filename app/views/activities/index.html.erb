@@ -1,0 +1,9 @@
+<h1>Friend'	s Activity</h1>
+<br><br><br><br><br><br><br><br>
+<% @activities.each do |activity| %>
+	<div class="ui secondary segment">
+	<%= image_tag activity.owner.avatar.url(:thumb), class: 'ui avatar image' %>
+		<%= link_to activity.owner.username , activity.owner.username if activity.owner %> 
+		<%= render_activity activity %>
+	</div>
+<%  end %>
