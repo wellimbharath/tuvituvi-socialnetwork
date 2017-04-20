@@ -8,11 +8,11 @@ Rails.application.configure do
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
-  
+
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  
+
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
@@ -32,7 +32,7 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = true
-  
+
   config.assets.debug = true
    config.react.variant = :production
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
@@ -80,6 +80,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.action_mailer.default_url_options = {:host => 'web.tuvituvi.com'}
+  config.action_mailer.default_url_options = {:host => 'tuvituvi.herokuapp.com'}
   config.action_mailer.delivery_method = :smtp
 end
