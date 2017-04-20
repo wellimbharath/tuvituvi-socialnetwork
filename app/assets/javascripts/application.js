@@ -12,17 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-
 //= require semantic-ui
 //= require private_pub
-
 //= require chat
 //= require turbolinks
-//= require react
-//= require react_ujs
-//= require components
 //= require jquery.Jcrop
-
 //= require_tree .
 
 $(document).ready(function() {
@@ -32,4 +26,3 @@ $(document).ready(function() {
         })
     }, 1000 );
 });
-  

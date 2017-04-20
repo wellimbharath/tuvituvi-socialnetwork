@@ -15,10 +15,10 @@
 <body class="ripple-effect">
 <div class="box ripple-effect ">
 		<% flash.each do |name, msg| %>
-		  
+
 		  <% if msg.is_a?(String) %>
 		    <div class="alert alert-<%= name.to_s == 'notice' ? 'success' : 'danger' %>">
-		   
+
 		      <%= content_tag :div, msg, :class => "ns-ripple-effect" %>
 		    </div>
 		  <% end %>
@@ -43,7 +43,7 @@
 					setTimeout( function() {
 
 						classie.remove( bttn, 'active' );
-						
+
 						// create the notification
 						var notification = new NotificationFx({
 							message : '<span class="icon icon-calendar"></span><p>The event was added to your calendar. Check out all your events in your <a href="#">event overview</a>.</p>',
@@ -59,7 +59,7 @@
 						notification.show();
 
 					}, 1200 );
-					
+
 					// disable the button (for demo purposes only)
 					this.disabled = true;
 				} );
