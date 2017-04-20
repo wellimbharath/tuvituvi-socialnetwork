@@ -1,0 +1,23 @@
+
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: <%= ENV["USERNAME"] %>
+  password: <%= ENV["PASSWORD"] %>
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  database: tuvituvi_development
+
+test:
+  <<: *default
+  database: tuvituvi_test
+
+production:
+  <<: *default
+  database: tuvituvi_production
+  url: <%= ENV['DATABASE_URL'] %>
+  username: deploy
+  password: <%= ENV['DATABASE_PASSWORD'] %>
