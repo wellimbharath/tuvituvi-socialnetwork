@@ -27,12 +27,15 @@ gem 'papercrop'
 gem 'paperclip-av-transcoder'
 gem 'mandrill-rails'
 gem 'rack-cache'
+gem "passenger"
+
 group :development, :test do
   gem 'byebug'
   gem 'mocha'
   gem 'web-console', '~> 2.0'
   gem 'spring', "~>1.3.3"
   gem 'meta_request'
+  gem 'dotenv-rails'
 end
 
 group :development do

@@ -16,3 +16,4 @@
 config/database.yml.example
 config/secrets.yml.example
 config/initializers/gibbon.rb
+.env
