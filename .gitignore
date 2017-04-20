@@ -11,7 +11,7 @@
 /log/*
 !/log/.keep
 /tmp
-
+/public/system/*
+/pulic/assets/*
 config/database.yml
-
 config/initializers/gibbon.rb
