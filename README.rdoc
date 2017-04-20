@@ -8,4 +8,4 @@ Stack:
 * Rails 4.2.3
 * mysql2
 
-This app uses passenger as its backend server, paperclip for image uploading and devise as authentication engine.
+This app uses passenger as its backend server, paperclip for image uploading and devise for authentication.

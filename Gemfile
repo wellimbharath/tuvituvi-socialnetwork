@@ -27,8 +27,7 @@ gem 'papercrop'
 gem 'paperclip-av-transcoder'
 gem 'mandrill-rails'
 gem 'rack-cache'
-gem 'react-rails', '~> 1.4.0'
-
+gem "passenger"
 group :development, :test do
   gem 'byebug'
   gem 'mocha'
@@ -38,7 +37,6 @@ group :development, :test do
 end
 
 group :development do
-  gem "passenger"
   gem 'capistrano'
   gem 'capistrano-bundler'
   gem 'sshkit'
