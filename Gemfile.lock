@@ -183,9 +183,6 @@ GEM
       jquery-rails
       paperclip (>= 3.4)
       rails (>= 3.1)
-    passenger (5.0.26)
-      rack
-      rake (>= 0.8.1)
     pr_geohash (1.0.0)
     private_pub (1.0.3)
       faye
@@ -325,7 +322,6 @@ DEPENDENCIES
   paperclip (~> 4.3)
   paperclip-av-transcoder
   papercrop
-  passenger
   private_pub
   public_activity
   rack-cache

@@ -27,7 +27,6 @@ gem 'papercrop'
 gem 'paperclip-av-transcoder'
 gem 'mandrill-rails'
 gem 'rack-cache'
-gem "passenger"
 group :development, :test do
   gem 'byebug'
   gem 'mocha'
