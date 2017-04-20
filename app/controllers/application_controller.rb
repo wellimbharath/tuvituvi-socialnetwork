@@ -1,10 +1,8 @@
 class ApplicationController < ActionController::Base
-
 include PublicActivity::StoreController
 protect_from_forgery with: :null_session
 before_filter :authenticate_user!, except: [:show, :index, :terms, :about, :contact]
 before_action :configure_permitted_parameters, if: :devise_controller?
-
 protected
 after_filter :store_location
 

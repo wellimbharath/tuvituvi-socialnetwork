@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   has_many :dreams
   validates :username, :presence => true, :uniqueness => {:case_sensitive => false}
 
-  has_attached_file :avatar, :styles => { :large => "800x800>", :medium => "500x500#" , :thumb=> "200x200#", :small => "100x100#"}, :default_url => "/images/:style/missing.png",                     :processors => [:cropper],  :dependent => :destroy
+  has_attached_file :avatar, :styles => { :large => "800x800>", :medium => "500x500#" , :thumb=> "200x200#", :small => "100x100#"}, :default_url => "/missing.png",:processors => [:cropper],  :dependent => :destroy
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   after_update :reprocess_avatar, :if => :cropping?
