@@ -13,12 +13,12 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  socket: /var/run/mysqld/mysqld.sock
   username: root
   password: <%= ENV['DATABASE_PASSWORD'] %>
 
 development:
   <<: *default
+  socket: /var/run/mysqld/mysqld.sock
   database: tuvituvi_development
 
 # Warning: The database defined as "test" will be erased and
