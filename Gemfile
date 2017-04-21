@@ -28,7 +28,7 @@ gem 'paperclip-av-transcoder'
 gem 'mandrill-rails'
 gem 'rack-cache'
 gem "passenger"
-
+gem 'delayed_job_active_record'
 group :development, :test do
   gem 'byebug'
   gem 'mocha'
