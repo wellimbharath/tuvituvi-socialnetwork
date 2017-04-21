@@ -2,7 +2,7 @@
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/ps/stylesheets,
  * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
  *
  * You're free to add application-wide styles to this file and they'll appear at the bottom of the
@@ -179,7 +179,7 @@ a {
    display:inline-block;
    margin:0 20px 0 20px;
    height: 20px;
-   background: url(assets/camera.svg) center no-repeat;
+   background: center no-repeat #FFF;
    background-size:cover;
    overflow: hidden;
 }
@@ -196,7 +196,7 @@ height:100%;
     width: 200px;
     display:inline-block;
     height: 200px;
-    background: url(assets/camera.svg) center no-repeat;
+    background: center no-repeat #FFF;
     background-size:cover;
     overflow: hidden;
 }
@@ -212,7 +212,7 @@ height:100%;
    margin:0 20px 0 20px;
    display:inline-block;
     height: 20px;
-    background: url(assets/audio.svg) center no-repeat;
+    background: center no-repeat #FFF;
     background-size:cover;
     overflow: hidden;
 }
@@ -228,7 +228,7 @@ height:100%;
    margin:0 20px 0 20px;
    display:inline-block;
     height: 200px;
-    background: url(assets/background.png) center no-repeat;
+    background: center no-repeat #FFF;
     background-size:cover;
     overflow: hidden;
 
@@ -242,13 +242,12 @@ height:100%;
 }
 #upload-video-container {
    width: 20px;
- margin:0 20px 0 20px;
+   margin:0 20px 0 20px;
    display:inline-block;
-    height: 20px;
-    background: url(assets/video.svg) center no-repeat;
-    background-size:cover;
-    overflow: hidden;
-
+   height: 20px;
+   background: center no-repeat #FFF;
+   background-size:cover;
+   overflow: hidden;
 }
 
 #upload-video-container input {
